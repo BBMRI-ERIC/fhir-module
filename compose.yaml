@@ -1,6 +1,6 @@
 services:
   fhir-module:
-    image: ghcr.io/bbmri-cz/fhir-module:latest
+    image: ghcr.io/bbmri-eric/fhir-module:latest
     container_name: fhir-module
     profiles:
       - dev
