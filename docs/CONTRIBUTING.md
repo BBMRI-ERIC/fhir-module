@@ -39,7 +39,7 @@ make setup
 #### Docker image
 
 Docker images are built continuously as part of the CI pipeline. However, for building your own test images simply
-run: `docker build . -t ghcr.io/bbmri-cz/fhir-module:local` in the directory containing the `Dockerfile`.
+run: `docker build . -t ghcr.io/bbmri-eric/fhir-module:local` in the directory containing the `Dockerfile`.
 
 #### Unit tests
 

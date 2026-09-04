@@ -84,7 +84,7 @@ openssl rand -base64 32
 ```yaml
 services:
   fhir-module:
-    image: ghcr.io/bbmri-cz/fhir-module:latest
+    image: ghcr.io/bbmri-eric/fhir-module:latest
     container_name: fhir-module
     profiles:
       - prod
@@ -259,7 +259,7 @@ Create `compose.yaml` with this content:
 ```yaml
 services:
   fhir-module:
-    image: ghcr.io/bbmri-cz/fhir-module:latest
+    image: ghcr.io/bbmri-eric/fhir-module:latest
     container_name: fhir-module
     profiles:
       - dev
