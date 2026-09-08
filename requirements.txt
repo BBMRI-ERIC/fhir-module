@@ -5,7 +5,7 @@ xmltodict~=0.13.0
 pytest~=7.3.2
 pytest-cov==4.0.0
 python-dateutil~=2.9.0
-schedule~=1.2.0
+schedule~=1.2.2
 pyfakefs~=5.2.2
 PyYAML~=6.0
 pylint
