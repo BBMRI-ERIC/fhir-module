@@ -2,7 +2,7 @@ FhirClient
 mock~=5.0.2
 requests
 xmltodict~=0.13.0
-pytest~=7.3.2
+pytest~=9.1.1
 pytest-cov==4.0.0
 python-dateutil~=2.9.0
 schedule~=1.2.0
