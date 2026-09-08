@@ -1,5 +1,5 @@
 FhirClient
-mock~=5.0.2
+mock~=5.2.0
 requests
 xmltodict~=0.13.0
 pytest~=7.3.2
