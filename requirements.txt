@@ -6,7 +6,7 @@ pytest~=7.3.2
 pytest-cov==4.0.0
 python-dateutil~=2.9.0
 schedule~=1.2.0
-pyfakefs~=5.2.2
+pyfakefs~=6.2.0
 PyYAML~=6.0
 pylint
 simple-icd-10
