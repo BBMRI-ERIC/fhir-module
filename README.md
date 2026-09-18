@@ -1,6 +1,6 @@
 # FHIR module
 
-[![CI build](https://github.com/BBMRI-cz/fhir-module/actions/workflows/build.yml/badge.svg)](https://github.com/BBMRI-cz/Data-Integration-Module/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/BBMRI-cz/fhir-module/branch/main/graph/badge.svg?token=3eklJNhIS5)](https://codecov.io/gh/BBMRI-cz/fhir-module) [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-360/) [![Linter: pylint](https://img.shields.io/badge/Linter-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![CI build](https://github.com/BBMRI-ERIC/fhir-module/actions/workflows/build.yml/badge.svg)](https://github.com/BBMRI-ERIC/fhir-module/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/BBMRI-ERIC/fhir-module/branch/main/graph/badge.svg?token=3eklJNhIS5)](https://codecov.io/gh/BBMRI-ERIC/fhir-module) [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-360/) [![Linter: pylint](https://img.shields.io/badge/Linter-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
 The [BBMRI-ERIC](https://www.bbmri-eric.eu/) FHIR module is a container based application connecting biobanks
 to other IT tools and services in our ecosystem on a local level.
