@@ -355,3 +355,101 @@ jobs:
           labels: ${{ steps.docker-meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  interop-focus:
+    name: Interop with samply/focus
+    needs: [build-image]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Download artifact
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4
+        with:
+          name: fhir-module-image
+          path: /tmp
+
+      - name: Load FHIR-Module Image
+        run: docker load --input /tmp/fhir-module.tar
+
+      - name: Create docker network
+        run: docker network create system-test
+
+      - name: Create .env file
+        run: touch .env
+
+      - name: Run sandbox in dev env
+        run: docker compose -f compose.yaml -f .github/comp_override/compose.override-xml.yaml --profile dev up -d
+
+      - name: Wait for MIABIS Blaze
+        run: .github/scripts/wait-for-url.sh http://localhost:5432/health
+
+      - name: Trigger sync and wait for completion
+        run: chmod +x .github/scripts/trigger-sync-and-wait.sh && .github/scripts/trigger-sync-and-wait.sh http://localhost:5000
+
+      - name: Query the synced data through samply/focus
+        run: chmod +x .github/scripts/interop-focus-check.sh && .github/scripts/interop-focus-check.sh
+        env:
+          BLAZE: http://localhost:5432/fhir
+          FOCUS_IMAGE: samply/focus:main
+
+      - name: Docker Logs
+        if: failure()
+        run: docker logs fhir-module
+
+  validate-etl-output:
+    name: IG validation of ETL output
+    needs: [build-image]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Download artifact
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4
+        with:
+          name: fhir-module-image
+          path: /tmp
+
+      - name: Load FHIR-Module Image
+        run: docker load --input /tmp/fhir-module.tar
+
+      - name: Create docker network
+        run: docker network create system-test
+
+      - name: Create .env file
+        run: touch .env
+
+      - name: Run sandbox in dev env
+        run: docker compose -f compose.yaml -f .github/comp_override/compose.override-xml.yaml --profile dev up -d
+
+      - name: Wait for MIABIS Blaze
+        run: .github/scripts/wait-for-url.sh http://localhost:5432/health
+
+      - name: Trigger sync and wait for completion
+        run: chmod +x .github/scripts/trigger-sync-and-wait.sh && .github/scripts/trigger-sync-and-wait.sh http://localhost:5000
+
+      - name: Cache the FHIR validator
+        uses: actions/cache@v4
+        with:
+          path: validator_cli.jar
+          key: validator-cli-latest
+
+      - name: Validate ETL output against the IG
+        run: chmod +x .github/scripts/validate-etl-output.sh && .github/scripts/validate-etl-output.sh
+        env:
+          BLAZE: http://localhost:5432/fhir
+          IG_PACKAGE: https://fhir.miabis.bbmri-eric.eu/package.tgz
+
+      - name: Docker Logs
+        if: failure()
+        run: docker logs fhir-module
